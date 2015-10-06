@@ -15,7 +15,23 @@ Every time a function is called, the current context is put on top of this
 “stack”. When the function returns, it removes the top context from the
 stack and uses it to continue execution.
 The call stack is very useful in debugging and makes up the Error stack when an error occured.
+<a name="higher-order" />
+### Higher order functions
+Functions that operate on other functions, either by taking them as arguments or by returning them, are called **higher-order functions**.
+Higher-order functions allow us to abstract over actions, not just values.
 
+Example:
+```
+function noisy(f) { 
+    return function(arg) {
+        console.log("calling with", arg);
+        var val = f(arg);
+        console.log("called with", arg, "- got", val); return val;
+    }; 
+}
+```
+
+Noisy is a higher-order function. Other common examples includes `Array.prototype.foreach` and other functions that take another function as it's argument (callbacks).
 <a name="lexical-scoping" />
 ### Lexical Scoping
 Lexical Scoping defines how variable names are resolved in nested functions: inner functions contain the scope of parent functions even if the parent function has returned. It is somewhat the same thing as Closures in Javascript.
